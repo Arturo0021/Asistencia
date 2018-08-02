@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.redbooth.WelcomePageLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/welcome_page">
+
+    <RelativeLayout
+        android:id="@+id/rocket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        app:view_behavior=".AnimationFillWithColor"
+        android:clipToPadding="false">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/negro"
+            android:textSize="25sp"
+            android:text="@string/hello_world" />
+
+    </RelativeLayout>
+
+</com.redbooth.WelcomePageLayout>

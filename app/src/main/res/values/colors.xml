@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="blanco_transp">#57ffffff</color>
+    <color name="guerraro">#1a1d6a</color>
+    <color name="negro">#000</color>
+    <color name="blanco">#fff</color>
+    <color name="textlabelclic">#00a8fc</color>
+    <color name="rojo">#fc000d</color>
+    <color name="amarillo">#fcd200</color>
+    <color name="verde">#00b900</color>
+
+</resources>

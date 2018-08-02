@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Asistencia</string>
+    <string name="entrar">Entrar</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="us_vacio">Usuario Vacío</string>
+    <string name="caract_no_perm">No Se Aceptan Caracteres Especiales</string>
+    <string name="contr_vacia">Contraseña Vacía</string>
+    <string name="dif_caracteres">[a-zA-Z0-9.? ]*</string>
+    <string name="invalid_user">Credenciales Invalidas</string>
+    <string name="waiting">Espere Por Favor...</string>
+    <string name="accept">ACEPTAR</string>
+    <string name="number_example">Ejemplo: 55-00-00-00-00</string>
+    <string name="add_number">Ingresa tu Número de Celular</string>
+    <string name="hello_world">Hello World</string>
+    <string name="salir">Salir</string>
+    <string name="clic">Clic</string>
+    <string name="registrado">Registrado</string>
+</resources>

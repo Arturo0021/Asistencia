@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "294902366281",
+    "firebase_url": "https://asistencia-db4dc.firebaseio.com",
+    "project_id": "asistencia-db4dc",
+    "storage_bucket": "asistencia-db4dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294902366281:android:8ccf1c704279205a",
+        "android_client_info": {
+          "package_name": "mensajes.team.mx.asistencia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294902366281-0iefb55tfk3jh811sh77hjcc8bgq4v0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2L5f7Pi2ubYbCW76mEYbpb9H5soZS_ZE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
