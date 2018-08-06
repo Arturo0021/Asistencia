@@ -114,4 +114,47 @@ public class Data_Visitas {
 
     }
 
+    public static mensajes.team.mx.asistencia.Entities.Entities_Visitas get_Visita_Abierta(Context context, mensajes.team.mx.asistencia.Entities.Entities_Usuarios usuarios, String time) {
+
+        db = (new DBHelper(context)).getWritableDatabase();
+        mensajes.team.mx.asistencia.Entities.Entities_Visitas visitas = null;
+        String query = "SELECT "
+                + DBHelper.COLUMN_ID + ", "
+                + DBHelper.COLUMN_IDPROYECTO + ", "
+                + DBHelper.COLUMN_DETERMINANTE + ", "
+                + DBHelper.COLUMN_IDUSUARIO + ", "
+                + DBHelper.COLUMN_LATITUD + ", "
+                + DBHelper.COLUMN_LONGITUD + ", "
+                + DBHelper.COLUMN_ABIERTA + ", "
+                + DBHelper.COLUMN_FECHAENTRADA + ", "
+                + DBHelper.COLUMN_FECHASALIDA + ", "
+                + DBHelper.COLUMN_FECHAACTUAL + ", "
+                + DBHelper.COLUMN_FECHACIERRE + ", "
+                + DBHelper.COLUMN_TIPOUBICACION
+                + " FROM " + DBHelper.TABLE_VISITA
+                + " WHERE "  + DBHelper.COLUMN_IDUSUARIO + " = " + usuarios.getId()
+                + " AND " + DBHelper.COLUMN_ABIERTA + " = 1"
+                + " AND DATE(" + DBHelper.COLUMN_FECHAENTRADA + ") = " + "DATE('" + time + "');";
+        Cursor cursor = db.rawQuery(query, null);
+
+
+        if(cursor.moveToFirst()) {
+            visitas = new Entities_Visitas();
+            visitas.setId(cursor.getInt(0));
+            visitas.setIdProyecto(cursor.getInt(1));
+            visitas.setDeterminanteGSP(cursor.getInt(2));
+            visitas.setIdUsuario(cursor.getInt(3));
+            visitas.setLatitud(cursor.getDouble(4));
+            visitas.setLongitud(cursor.getDouble(5));
+            visitas.setAbierta(cursor.getInt(6));
+            visitas.setFechaEntrada(cursor.getString(7));
+            visitas.setFechaSalida(cursor.getString(8));
+            visitas.setFechaAcual(cursor.getString(9));
+            visitas.setFechaCierre(cursor.getString(10));
+            visitas.setTipoUbicacion(cursor.getString(11));
+        }
+
+        return visitas;
+    }
+
 }

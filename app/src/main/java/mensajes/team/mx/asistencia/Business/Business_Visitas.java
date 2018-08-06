@@ -48,4 +48,15 @@ public class Business_Visitas {
         mensajes.team.mx.asistencia.Data.Data_Visitas.update_visita(context, visitas, time);
     }
 
+    public static mensajes.team.mx.asistencia.Entities.Entities_Visitas get_Visita_Abierta(Context context, mensajes.team.mx.asistencia.Entities.Entities_Usuarios usuarios, String time) throws Exception {
+
+        if(usuarios == null) {
+            throw new Exception("Objeto Usuarios No Referenciado get_Visita_Abierta");
+        }
+
+        mensajes.team.mx.asistencia.Entities.Entities_Visitas visitas = mensajes.team.mx.asistencia.Data.Data_Visitas.get_Visita_Abierta(context, usuarios, time);
+
+        return visitas;
+    }
+
 }

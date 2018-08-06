@@ -21,4 +21,19 @@ public class Business_Conjuntos_Tiendas {
         return collection;
     }
 
+    public static  mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas get_Tiendas_visitada(Context context, mensajes.team.mx.asistencia.Entities.Entities_Visitas visita, mensajes.team.mx.asistencia.Entities.Entities_Usuarios usuarios, String time) throws Exception{
+
+        if(visita == null) {
+            throw new Exception("Objeto Visitas No Referenciado get_Tiendas_visitada");
+        }
+
+        if(usuarios == null) {
+            throw new Exception("Objeto Usuarios No Referenciado get_Tiendas_visitada");
+        }
+
+        mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas get_Tiendas_visitada = mensajes.team.mx.asistencia.Data.Data_Conjuntos_Tiendas.get_Tiendas_visitada(context, visita,usuarios, time);
+
+        return get_Tiendas_visitada;
+    }
+
 }

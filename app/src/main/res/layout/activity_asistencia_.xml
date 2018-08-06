@@ -1,29 +1,32 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     tools:context=".Asistencia_Activity">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="?attr/actionBarSize">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mi_toolbarpr"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/blanco"
+            android:background="@color/guerraro">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
         <RelativeLayout
+            android:layout_below="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/mi_toolbarpr"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:titleTextColor="@color/blanco"
-                android:background="@color/guerraro">
-
-            </android.support.v7.widget.Toolbar>
 
             <TextView
                 android:id="@+id/txt_location"
@@ -33,10 +36,41 @@
             <ListView
                 android:id="@+id/set_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/mi_toolbarpr" />
+                android:layout_height="match_parent"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="14dp"
+                android:elevation="8dp"
+                app:fab_addButtonColorNormal="@color/negro"
+                app:fab_addButtonSize="normal"
+                app:fab_labelsPosition="left">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/float_mensajes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/guerraro"
+                    app:fab_icon="@drawable/msj"
+                    app:fab_size="mini"
+                    app:fab_title="Mensajes" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/float_cerrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/guerraro"
+                    app:fab_icon="@drawable/close"
+                    app:fab_size="mini"
+                    app:fab_title="Cerrar Session" />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
         </RelativeLayout>
 
-    </ScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

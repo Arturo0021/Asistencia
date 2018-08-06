@@ -184,4 +184,62 @@ public class Data_Conjuntos_Tiendas {
         return collection;
     }
 
+    public static  mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas get_Tiendas_visitada(Context context, mensajes.team.mx.asistencia.Entities.Entities_Visitas visita, mensajes.team.mx.asistencia.Entities.Entities_Usuarios usuarios, String time) {
+
+        db = (new DBHelper(context)).getWritableDatabase();
+        mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas collection = new Entities_Conjuntos_Tiendas();
+
+        String query = "SELECT "
+                + "p." + DBHelper.COLUMN_DETERMINANTE + ", "
+                + "p." + DBHelper.COLUMN_DETERMINANTETIENDA + ", "
+                + "p." + DBHelper.COLUMN_IDGRUPO + ", "
+                + "p." + DBHelper.COLUMN_SUCURSAL + ", "
+                + "p." + DBHelper.COLUMN_DIRECCION + ", "
+                + "p." + DBHelper.COLUMN_CP + ", "
+                + "p." + DBHelper.COLUMN_TELEFONO + ", "
+                + "p." + DBHelper.COLUMN_LATITUD + ", "
+                + "p." + DBHelper.COLUMN_LONGITUD + ", "
+                + "p." + DBHelper.COLUMN_ALTITUD + ", "
+                + "p." + DBHelper.COLUMN_ACTIVO + ", "
+                + "p." + DBHelper.COLUMN_COLONIA + ", "
+                + "p." + DBHelper.COLUMN_NUEVOPUNTO + ", "
+                + "p." + DBHelper.COLUMN_RANGOGPS + ", "
+                + "p." + DBHelper.COLUMN_CADENA + ", "
+                + "p." + DBHelper.COLUMN_IDPROYECTO + ", "
+                + "v." + DBHelper.COLUMN_ID + ", "
+                + "v." + DBHelper.COLUMN_ABIERTA
+                + " FROM  " + DBHelper.TABLE_POP + " AS p"
+                + " LEFT JOIN " + DBHelper.TABLE_VISITA + " AS v ON v." + DBHelper.COLUMN_DETERMINANTE + " = p." + DBHelper.COLUMN_DETERMINANTE
+                + " AND v." + DBHelper.COLUMN_IDPROYECTO + " = p." + DBHelper.COLUMN_IDPROYECTO
+                + " AND DATE(v." + DBHelper.COLUMN_FECHAACTUAL + ") = DATE('" + time + "')"
+                + " AND v." + DBHelper.COLUMN_IDUSUARIO + " = " + usuarios.getId()
+                + " WHERE v." + DBHelper.COLUMN_ID + " = " + visita.getId()
+                + " AND p." + DBHelper.COLUMN_ACTIVO + " = 1;";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+
+            collection.setDeterminanteGSP(cursor.getInt(0));
+            collection.setDeterminanteTienda(cursor.getInt(1));
+            collection.setIdGrupo(cursor.getInt(2));
+            collection.setSucursal(cursor.getString(3));
+            collection.setDireccion(cursor.getString(4));
+            collection.setCP(cursor.getInt(5));
+            collection.setTelefonos(cursor.getString(6));
+            collection.setLatitud(cursor.getDouble(7));
+            collection.setLongitud(cursor.getDouble(8));
+            collection.setAltitud(cursor.getDouble(9));
+            collection.setActivo(cursor.getInt(10));
+            collection.setColonia(cursor.getString(11));
+            collection.setNuevoPunto(cursor.getInt(12));
+            collection.setRangoGPS(cursor.getDouble(13));
+            collection.setCadena(cursor.getString(14));
+            collection.setIdProyecto(cursor.getInt(15));
+            collection.setIdVisita(cursor.getInt(16));
+            collection.setAbierta(cursor.getInt(17));
+
+        }
+        return  collection;
+    }
+
 }

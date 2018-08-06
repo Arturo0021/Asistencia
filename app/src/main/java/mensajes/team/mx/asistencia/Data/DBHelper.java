@@ -304,12 +304,12 @@ public class DBHelper extends SQLiteOpenHelper{
                         + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                         + COLUMN_TIPO + " VARCHAR, "
                         + COLUMN_CUERPO + " VARCHAR, "
-                        + COLUMN_CAPTURAFECHA + " NUMERIC, "
+                        + COLUMN_CAPTURAFECHA + " VARCHAR, "
                         + COLUMN_FECHAFIN + " VARCHAR, "
                         + COLUMN_FECHAENVIO + " VARCHAR, "
                         + COLUMN_IDPROYECTO + " INTEGER, "
                         + COLUMN_STATUSSYNC + " INTEGER, "
-                        + COLUMN_FECHASSYNC + " NUMERIC, "
+                        + COLUMN_FECHASSYNC + " VARCHAR, "
                         + COLUMN_ACTIVO + " INTEGER "
                         + ");";
         db.execSQL(TableMensajes);

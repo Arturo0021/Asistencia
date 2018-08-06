@@ -1,6 +1,8 @@
 package mensajes.team.mx.asistencia.Data;
 
 import android.content.Context;
+import android.os.Environment;
+import android.os.Looper;
 
 import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
@@ -8,11 +10,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 
 import mensajes.team.mx.asistencia.Entities.Collection_Conjuntos_Tiendas;
+import mensajes.team.mx.asistencia.Entities.Collection_Versiones;
 import mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas;
+import mensajes.team.mx.asistencia.Entities.Entities_Mensajes;
+import mensajes.team.mx.asistencia.Entities.Entities_Proyectos_Usuarios;
+import mensajes.team.mx.asistencia.Entities.Entities_Versiones;
+import mensajes.team.mx.asistencia.R;
+import mensajes.team.mx.asistencia.Utilerias.Utils;
 
 public class Download_Information {
 
@@ -54,8 +67,14 @@ public class Download_Information {
             mensajes.team.mx.asistencia.Data.Data_Proyectos.Insert_Proyecto(context, entities_proyectos);
         }
 
+        mensajes.team.mx.asistencia.Entities.Entities_Proyectos_Usuarios pu = new Entities_Proyectos_Usuarios();
+        pu.setIdUsuario(entities_usuarios.getId());
+        pu.setIdProyecto(entities_proyectos.getId());
+
         mensajes.team.mx.asistencia.Data.Data_Proyectos_Usuarios.Insert_Proyectos_Usuarios(context, entities_usuarios, entities_proyectos);
         mensajes.team.mx.asistencia.Data.Download_Information.Download_Conjuntos_Tiendas(context, entities_usuarios, entities_proyectos);
+        mensajes.team.mx.asistencia.Data.Download_Information.Download_Mensajes(context, pu);
+        mensajes.team.mx.asistencia.Data.Download_Information.Download_Versiones(context);
 
     }
 
@@ -122,6 +141,109 @@ public class Download_Information {
             e.getMessage();
         }
 
+    }
+
+    public static void Download_Mensajes(Context context, mensajes.team.mx.asistencia.Entities.Entities_Proyectos_Usuarios pu) throws Exception {
+
+        mensajes.team.mx.asistencia.Entities.Entities_Mensajes mensaje = new Entities_Mensajes();
+        Wcf_Service service = new Wcf_Service();
+
+        METHOD_NAME = "/GetMensajesByUsuario";
+
+        jsonString = new JSONStringer()
+                .object()
+                    .key("Proyecto")
+                    .object()
+                         .key("Id").value(pu.getIdProyecto())
+                         .key("Ufechadescarga").value(Utils.getFecha_x())
+                    .endObject()
+                    .key("Usuario")
+                    .object()
+                        .key("Id").value(pu.getIdUsuario())
+                    .endObject()
+                .endObject();
+
+        strEntity = new StringEntity(jsonString.toString());
+        jsonResult = service.HttpPost(METHOD_NAME, strEntity);
+        jsonArray = jsonResult.getJSONArray("GetMensajesByUsuarioResult");
+
+        for(int i = 0; i < jsonArray.length(); i++)
+        {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+            mensaje.setId(jsonObject.getInt("Id"));
+            mensaje.setTipo(jsonObject.getString("Tipo"));
+            mensaje.setCuerpo(jsonObject.getString("Cuerpo"));
+            mensaje.setCapturaFecha(jsonObject.getString("CapturaFecha"));
+            mensaje.setFechaFin(jsonObject.getString("FechaFin"));
+            mensaje.setFechaEnvio(jsonObject.getString("FechaEnvio"));
+            mensaje.setIdProyecto(jsonObject.getInt("IdProyecto"));
+            mensaje.setStatusSync(jsonObject.getInt("Statussync"));
+            mensaje.setFechaSync(jsonObject.getString("FechaSync"));
+            mensaje.setActivo(jsonObject.getInt("Activo"));
+
+            mensajes.team.mx.asistencia.Data.Data_Mensajes.Insert_Mensajes(context, mensaje);
+
+        }
+
+    }
+
+    public static void Download_Versiones(Context context) throws Exception{
+
+        METHOD_NAME = "/GetVersionAPK";
+        Wcf_Service service = new Wcf_Service();
+        mensajes.team.mx.asistencia.Entities.Collection_Versiones version = new Collection_Versiones();
+
+        jsonString = new JSONStringer().object()
+                .key("version")
+                .object()
+                    .key("idAplicacion").value(context.getResources().getString(R.string.IdVersion))
+                .endObject()
+                .endObject();
+
+        strEntity = new StringEntity(jsonString.toString());
+        jsonResult = service.HttpPost(METHOD_NAME, strEntity);
+        jsonArray = jsonResult.getJSONArray("GetVersionAPKResult");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            mensajes.team.mx.asistencia.Entities.Entities_Versiones versiones = new Entities_Versiones();
+            versiones.setId(jsonObject.getInt("id"));
+            versiones.setVersion(jsonObject.getInt("Version"));
+            versiones.setNombreapk(jsonObject.getString("Nombre"));
+            versiones.setUrl(jsonObject.getString("Url"));
+            mensajes.team.mx.asistencia.Data.Data_Versiones.Insert_Versiones(context, versiones);
+            version.add(versiones);
+        }
+    }
+
+    public static Boolean Download_Apk(mensajes.team.mx.asistencia.Entities.Entities_Versiones versiones) {
+
+        Boolean Existe_Nuevo_APK = false;
+
+                try {
+                   // Looper.prepare();
+                    String rutapath = Environment.getExternalStorageDirectory() + "/Apks/" + versiones.getNombreapk() + ".apk";
+                    File file = new File(rutapath);
+                    if(file.exists()){
+                        Existe_Nuevo_APK = true;
+                    } else {
+                        URL u = new URL("http://www.webteam.mx/Apps/" + versiones.getNombreapk() + ".apk");
+                        InputStream is = u.openStream();
+                        DataInputStream dis = new DataInputStream(is);
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory() + "/Apks/" + versiones.getNombreapk() + ".apk"));
+                        while ((length = dis.read(buffer))>0) {
+                            fos.write(buffer, 0, length);
+                        }
+                    }
+                    //Looper.loop();
+                } catch (Exception ex) {
+                    ex.getMessage();
+                }
+
+        return Existe_Nuevo_APK;
     }
 
 }

@@ -13,6 +13,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,6 +34,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.5.2'
     implementation 'com.android.support:gridlayout-v7:27.1.1'
     implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.0'

@@ -66,4 +66,14 @@ public class Data_Fotos {
         return collection;
     }
 
+    public static void update_status_foto(Context context, mensajes.team.mx.asistencia.Entities.Entities_Fotos foto) {
+
+        db = (new DBHelper(context)).getWritableDatabase();
+        String query = "UPDATE " + DBHelper.TABLE_PHOTO
+                            + " SET " + DBHelper.COLUMN_STATUSSYNC + " = 1 "
+                            + " WHERE " + DBHelper.COLUMN_IDVISITA + " = " + foto.getIdVisita()
+                                + " AND " + DBHelper.COLUMN_TIPO + " = '" + foto.getTipo() + "';";
+        db.execSQL(query);
+    }
+
 }

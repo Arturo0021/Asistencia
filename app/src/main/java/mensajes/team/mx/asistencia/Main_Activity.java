@@ -59,6 +59,7 @@ public class Main_Activity extends AppCompatActivity {
         link_signup = (TextView)findViewById(R.id.link_signup);
         link_version = (TextView)findViewById(R.id.link_version);
 
+        link_version.setText(R.string.VersionAPK);
         dialog_infoGrafia();
 
         setCredencialesIfExists(); // Valida si existe un usuario guardado en SharedPreference
@@ -175,8 +176,8 @@ public class Main_Activity extends AppCompatActivity {
 
     private void savePreference(String usuario, String pass) { // Guarda las Credenciales
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("usuario", usuario);
-        editor.putString("password", pass);
+        editor.putString("usuario", usuario.trim());
+        editor.putString("password", pass.trim());
         editor.apply();
 
     }

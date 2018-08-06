@@ -24,4 +24,13 @@ public class Business_Fotos {
         return collection;
     }
 
+    public static void update_status_foto(Context context, mensajes.team.mx.asistencia.Entities.Entities_Fotos foto) throws Exception {
+
+        if(foto == null) {
+            throw new Exception("Objeto Fotos No Referenciado update_status_foto");
+        }
+
+        mensajes.team.mx.asistencia.Data.Data_Fotos.update_status_foto(context, foto);
+    }
+
 }

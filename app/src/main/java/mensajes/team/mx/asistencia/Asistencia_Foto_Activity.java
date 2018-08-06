@@ -48,8 +48,6 @@ public class Asistencia_Foto_Activity extends AppCompatActivity {
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 3000;
     private MagicalPermissions magicalPermissions;
     private android.support.v7.widget.Toolbar mi_toolbar;
-    File saveDir;
-    File mfile;
     Switch switch_entrada;
     Switch switch_salida;
     private View view;
@@ -128,6 +126,32 @@ public class Asistencia_Foto_Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         get_Visita();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mensajes.team.mx.asistencia.Business.Upload_Information.upload_visita(visitas);
+                    for(mensajes.team.mx.asistencia.Entities.Entities_Fotos entities_fotos: collection_fotos) {
+                        switch (entities_fotos.getTipo()){
+                            case "ENTRADA":
+                                if (entities_fotos.getStatusSync() == 0){
+                                    mensajes.team.mx.asistencia.Business.Upload_Information.Foto_Entrada(context, visitas, entities_fotos);
+                                }
+                                break;
+                            case "SALIDA":
+                                if(entities_fotos.getStatusSync() == 0){
+                                    mensajes.team.mx.asistencia.Business.Upload_Information.Foto_Salida(context, visitas, entities_fotos);
+                                }
+                                break;
+                        }
+                    }
+                } catch (Exception e){
+                    e.getMessage();
+                }
+            }
+        }).start();
+
     }
 
     public void guarda_visita(final Context context, final mensajes.team.mx.asistencia.Entities.Entities_Conjuntos_Tiendas tiendas, final mensajes.team.mx.asistencia.Entities.Entities_Usuarios entities_usuarios, final double latitud, final double longitud){
