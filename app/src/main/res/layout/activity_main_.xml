@@ -66,15 +66,23 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:text="@string/entrar"/>
 
+        <TextView android:id="@+id/ver_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/guerraro"
+            android:text="@string/infografia"
+            android:gravity="center"
+            android:textSize="16dip"/>
 
         <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="15dp"
             android:textColor="@color/rojo"
             android:gravity="center"
             android:textSize="16dip"/>

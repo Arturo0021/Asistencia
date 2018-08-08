@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -21,12 +22,16 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.WelcomePageLayout;
 
 import mensajes.team.mx.asistencia.Business.Business_Usuarios;
 import mensajes.team.mx.asistencia.Entities.Entities_Usuarios;
@@ -37,7 +42,7 @@ public class Main_Activity extends AppCompatActivity {
     Context context; View view;
     EditText input_usuario; EditText input_password;
     AppCompatButton btn_login;
-    TextView link_signup; TextView link_version;
+    TextView link_signup; TextView link_version; TextView ver_info;
     SharedPreferences preferences;
     String fecha_Servidor = "";
     WelcomeCoordinatorLayout cordinator_layout;
@@ -58,11 +63,19 @@ public class Main_Activity extends AppCompatActivity {
         btn_login = (AppCompatButton)findViewById(R.id.btn_login);
         link_signup = (TextView)findViewById(R.id.link_signup);
         link_version = (TextView)findViewById(R.id.link_version);
+        ver_info = (TextView)findViewById(R.id.ver_info);
 
         link_version.setText(R.string.VersionAPK);
         dialog_infoGrafia();
 
         setCredencialesIfExists(); // Valida si existe un usuario guardado en SharedPreference
+
+        ver_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_infoGrafia();
+            }
+        });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,14 +252,18 @@ public class Main_Activity extends AppCompatActivity {
     }
 
     public void dialog_infoGrafia() {
-        View view_dialog = getLayoutInflater().inflate(R.layout.inflater_welcome, null);
-        cordinator_layout = (WelcomeCoordinatorLayout)view_dialog.findViewById(R.id.cordinator_layout);
-        cordinator_layout.addPage(R.layout.infografia_one, R.layout.infografia_two);
+
         final Dialog alert = new Dialog(new ContextThemeWrapper(Main_Activity.this, R.style.Dialogo));
+            View view_dialog = getLayoutInflater().inflate(R.layout.inflater_welcome, null);
+            cordinator_layout = (WelcomeCoordinatorLayout)view_dialog.findViewById(R.id.cordinator_layout);
+
+            cordinator_layout.addPage(R.layout.infografia_one, R.layout.paso_uno, R.layout.paso_dos, R.layout.paso_tres, R.layout.infografia_two);
+
         alert.setContentView(view_dialog);
-        alert.setCancelable(false);
+        alert.setCancelable(true);
         alert.create();
         alert.show();
+
         Button bt_salir = view_dialog.findViewById(R.id.bt_salir);
         bt_salir.setOnClickListener(new View.OnClickListener() {
             @Override

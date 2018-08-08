@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
 public class Wcf_Service {
 
 
-    //private static final String localizacion = "http://www.webteam.mx/ServicioTeam35/";
-    private static final String Location = "http://www.webteam.mx/Demo/"; //  DEMO
+    private static final String Location = "http://www.webteam.mx/ServicioTeam35/";
+    //private static final String Location = "http://www.webteam.mx/Demo/"; //  DEMO
     private static final String SERVICE_URI = Location + "Tracker.Procesos.svc";
 
     public JSONObject HttpPost(String methodName, StringEntity entity) throws IOException, JSONException {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/codinator_page"
-    android:background="@drawable/intro_p"
+    android:background="@drawable/paso1"
     style="@style/welcome_page">
 
 

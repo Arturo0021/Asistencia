@@ -2,17 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/paso4"
     android:layout_height="match_parent">
 
     <Button
-        style="?attr/borderlessButtonStyle"
         android:id="@+id/bt_salir"
+        style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="75dp"
         android:text="@string/salir"
-        android:textSize="15sp"
-        android:textColor="@color/negro"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"/>
+        android:textColor="@color/blanco"
+        android:textSize="17sp" />
 
 </RelativeLayout>
